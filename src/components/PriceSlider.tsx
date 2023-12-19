@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
 import styles from './PriceSlider.module.css';
+import React from "react";
 
 interface PriceSliderProps {
-  maxPrice: number;
-  onPriceChange: (max: number) => void;
+  maxPrice: number,
+  maxSelectedPrice: number,
+  handleMaxPriceChange: React.ChangeEventHandler<HTMLInputElement> | undefined
 }
 
-const PriceSlider = ({ maxPrice, onPriceChange }: PriceSliderProps) => {
-  const [maxSelectedPrice, setMaxSelectedPrice] = useState(maxPrice);
-
-  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newMaxPrice = Math.max(Number(e.target.value), 0);
-    setMaxSelectedPrice(newMaxPrice);
-    onPriceChange(newMaxPrice);
-  };
+const PriceSlider = ({ maxPrice, maxSelectedPrice, handleMaxPriceChange }: PriceSliderProps) => {
+  // const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newMaxPrice = Math.max(Number(e.target.value), 0);
+  //   setMaxSelectedPrice(newMaxPrice);
+  //   onPriceChange(newMaxPrice);
+  // };
 
   let priceMsg = 'Free';
   if(maxSelectedPrice > 0) {

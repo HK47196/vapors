@@ -32,12 +32,12 @@ function fetchGamesFn() {
 
 const fetchGames = fetchGamesFn();
 
-function getSearchUrl(searchTerm: string, sortOption: SortOption, genres: Set<string>) {
+function getSearchUrl(searchTerm: string, sortOption: SortOption, genres: Set<string>, maxPrice: number) {
 	if (genres.size === 0) {
-		return `/api/search?term=${searchTerm}&sort=${sortOption}`;
+		return `/api/search?term=${searchTerm}&sort=${sortOption}&maxPrice=${maxPrice}`;
 	}
 	const tags = Array.from(genres).map((tag) => `&tag=${tag}`).join('');
-	return `/api/search?term=${searchTerm}&sort=${sortOption}${tags}`;
+	return `/api/search?term=${searchTerm}&sort=${sortOption}&maxPrice=${maxPrice}${tags}`;
 }
 
 const App = () => {
@@ -46,29 +46,36 @@ const App = () => {
 	const [sortOption, setSortOption] = useState<SortOption>(SortOption.relevance);
 	const [genres, setGenres] = useState<Genres>({});
 	const [selectedGenres, setSelectedGenres] = useState<Set<string>>(new Set<string>());
+	const [maxSelectedPrice, setMaxSelectedPrice] = useState(100);
 
 	// Called on mounting component, load our games.
 	useEffect(() => {
-		void fetchGames(getSearchUrl('', SortOption.relevance, selectedGenres), setGamesList, setGenres);
+		void fetchGames(getSearchUrl('', SortOption.relevance, selectedGenres, maxSelectedPrice), setGamesList, setGenres);
 	}, []);
 
 
 	const handleSearch = useCallback(function handleSearch(searchTerm: string) {
 		setSearchTerm(searchTerm);
-		void fetchGames(getSearchUrl(searchTerm, sortOption, selectedGenres), setGamesList, setGenres);
-	}, [selectedGenres, sortOption]);
+		void fetchGames(getSearchUrl(searchTerm, sortOption, selectedGenres, maxSelectedPrice), setGamesList, setGenres);
+	}, [maxSelectedPrice, selectedGenres, sortOption]);
 
 	const handleSortChange = useCallback(function handleSortChange(sortOption: string) {
 		const sort = sortOption as SortOption;
 		setSortOption(sort);
-		void fetchGames(getSearchUrl(searchTerm, sort, selectedGenres), setGamesList, setGenres);
-	}, [searchTerm, selectedGenres]);
+		void fetchGames(getSearchUrl(searchTerm, sort, selectedGenres, maxSelectedPrice), setGamesList, setGenres);
+	}, [maxSelectedPrice, searchTerm, selectedGenres]);
 	const onSidebarGenreSelect = useCallback((tag: string) => {
 		if (!selectedGenres.delete(tag)) {
 			selectedGenres.add(tag)
 		}
 		setSelectedGenres(new Set(selectedGenres));
-		void fetchGames(getSearchUrl(searchTerm, sortOption, selectedGenres), setGamesList, setGenres);
+		void fetchGames(getSearchUrl(searchTerm, sortOption, selectedGenres, maxSelectedPrice), setGamesList, setGenres);
+	}, [maxSelectedPrice, searchTerm, selectedGenres, sortOption]);
+
+	const handleMaxPriceChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		const maxPrice = parseFloat(event.target.value);
+		setMaxSelectedPrice(maxPrice);
+		void fetchGames(getSearchUrl(searchTerm, sortOption, selectedGenres, maxPrice), setGamesList, setGenres);
 	}, [searchTerm, selectedGenres, sortOption]);
 
 
@@ -79,7 +86,8 @@ const App = () => {
 										sortOption={sortOption}/>
 				<main className={styles.mainContent}>
 					<GameList games={gamesList}/>
-					<Sidebar tags={genres} onTagSelect={onSidebarGenreSelect} selectedGenres={selectedGenres}/>
+					<Sidebar tags={genres} onTagSelect={onSidebarGenreSelect} selectedGenres={selectedGenres}
+									 handleMaxPriceChange={handleMaxPriceChange} maxSelectedPrice={maxSelectedPrice}/>
 				</main>
 				{/*<Footer />*/}
 			</div>

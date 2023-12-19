@@ -82,6 +82,8 @@ export function makeServer({environment = 'development'} = {}) {
 				const searchString = request.url.substring(request.url.indexOf('?') + 1);
 				const searchParams = new URLSearchParams(searchString);
 				const tags = searchParams.getAll('tag');
+				const maxPriceStr = searchParams.get('maxPrice');
+				const maxPrice = maxPriceStr ? parseFloat(maxPriceStr) : 100;
 
 				let term = searchParams.get('term') ?? '';
 				const sortBy = searchParams.get('sort') as SortOption;
@@ -95,13 +97,14 @@ export function makeServer({environment = 'development'} = {}) {
 				// Implement search filtering
 				if (term) {
 					term = term.toLowerCase();
-					filteredGames = filteredGames.filter((game) => game.name.toLowerCase().includes(term!));
+					filteredGames = filteredGames.filter((game) => game.name.toLowerCase().includes(term));
 				}
 
 				//TODO: genres, tags, …
 				if (tags.length > 0) {
 					filteredGames = filteredGames.filter((game) => tags.every((tag) => game.genres.includes(tag)));
 				}
+				filteredGames = filteredGames.filter((game) => Number(game.price) <= maxPrice);
 
 				// Go through filteredGames, get number of games for each genre.
 				const filteredGenreCounts: Record<string, number> = {};
