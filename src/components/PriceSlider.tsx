@@ -21,7 +21,10 @@ const PriceSlider = ({ maxPrice, onPriceChange }: PriceSliderProps) => {
   }
 
   return (
-    <div className={styles.priceSlider}>
+    <div className={styles.priceSliderWrapper}>
+      <div className={styles.priceHeader}>
+        Narrow by Price
+      </div>
       <input
         type="range"
         min={0}

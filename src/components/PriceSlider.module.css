@@ -1,12 +1,27 @@
-.priceSlider {
+.priceSliderWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
+    border: 1px solid var(--primary-color);
+}
+
+.priceHeader {
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 0.25rem;
+    padding-left: 0.25rem;
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+    width: 100%;
 }
 
 .priceDisplay {
     font-size: 1rem;
-    color: var(--primary-text-color);
-    margin-top: 10px;
+    color: var(--secondary-text-color);
+    margin-bottom: 10px;
+}
+
+.rangeInput {
+    width: 90%
 }
