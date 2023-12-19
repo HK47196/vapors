@@ -1,5 +1,6 @@
 import styles from './Sidebar.module.css';
 import {Genres} from "../types.ts";
+import PriceSlider from "./PriceSlider.tsx";
 
 interface SidebarProps {
 	tags: Genres;
@@ -17,8 +18,14 @@ function Sidebar({tags, onTagSelect, selectedGenres}: SidebarProps) {
 		}
 		return a.localeCompare(b);
 	});
+	const handlePriceChange = (maxPrice: number) => {
+		console.log(`Price range selected: ${maxPrice}`);
+		// Update the state or perform actions based on the price change
+	};
+
 	return (
 		<aside className={styles.sidebar}>
+			<PriceSlider maxPrice={100} onPriceChange={handlePriceChange}/>
 			<div className={styles.tagSection}>
 				<div className={styles.tagHeader}>Narrow by tag</div>
 				<div className={styles.tagsWrapper}>

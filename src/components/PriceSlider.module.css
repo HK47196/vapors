@@ -1,33 +1,12 @@
 .priceSlider {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.rangeInput {
-  -webkit-appearance: none; /* Override default appearance */
-  width: 100%; /* Full-width */
-  margin: 10px 0; /* Margin for spacing */
-}
-
-.rangeInput::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default appearance */
-  appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
-}
-
-.rangeInput::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .priceDisplay {
-  font-size: 1rem;
-  color: var(--primary-text-color);
-  margin-top: 10px;
+    font-size: 1rem;
+    color: var(--primary-text-color);
+    margin-top: 10px;
 }
