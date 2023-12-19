@@ -1,0 +1,54 @@
+.gameCard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center; /* Align items horizontally */
+    border: 1px solid #333;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-bottom: 2px;
+    transition: height 0.25s, margin 0.25s;
+    max-height: 45px;
+}
+
+.gameImage {
+    height: 45px;
+    display: block;
+    min-width: fit-content;
+}
+
+.gameName {
+    font-size: large;
+    color: var(--primary-text-color);
+    grid-column: span 2;
+    margin-left: 2px;
+}
+
+
+.gameReleaseDate,
+.gamePrice, .reviewScore {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+    text-align: end;
+}
+
+@media (min-width: 801px) {
+    .gameName {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .gameName {
+        font-size: small;
+    }
+
+    .gameCard {
+        padding: 2px 5px;
+    }
+
+    .gameReleaseDate,
+    .gamePrice, .reviewScore {
+        font-size: small;
+    }
+}

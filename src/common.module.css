@@ -1,0 +1,56 @@
+@layer common {
+    :root {
+        --primary-color: #2a475e;
+        --secondary-color: #1b2838;
+        --secondary-bright-color: #325571;
+        --tertiary-color: #0f161f;
+        --accent-color: #ff6f00;
+        --light-color: #f4f4f4;
+        --dark-color: #222;
+        --danger-color: #ff3d00;
+        --success-color: #00e676;
+        --warning-color: #ff9100;
+        --info-color: #00b0ff;
+        --border-radius: 0.25rem;
+        --transition-speed: 300ms;
+        --max-width: 1170px;
+        --fixed-width: 700px;
+        --breakpoint-sm: 576px;
+        --breakpoint-md: 768px;
+        --breakpoint-lg: 992px;
+        --breakpoint-xl: 1200px;
+        --breakpoint-xxl: 1400px;
+
+        --primary-text-color: #fff;
+        --secondary-text-color: #c0c0c0;
+        --tertiary-text-color: #808080;
+
+        --dark-overlay-color: rgba(0, 0, 0, 0.5);
+        --light-overlay-color: rgba(0, 0, 0, 0.2);
+
+        --background-gradient: linear-gradient(to bottom, #363649 0%, #121212 100%);
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 0;
+        background-color: var(--secondary-color);
+        color: var(--primary-text-color);
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s; /* smooth transitions for hover and focus */
+    }
+
+    button:hover {
+        background-color: var(--primary-color);
+        color: var(--primary-text-color);
+    }
+
+    input {
+        padding: 0.5rem;
+        border: 1px solid var(--tertiary-color);
+        box-shadow: 0 0 0 1px var(--tertiary-color);
+        border-radius: 4px;
+        background-color: var(--primary-color);
+    }
+}

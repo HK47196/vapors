@@ -1,0 +1,6 @@
+.searchArea {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-color);
+    margin-top: 2rem;
+}
