@@ -9,6 +9,14 @@ interface SidebarProps {
 
 function Sidebar({tags, onTagSelect, selectedGenres}: SidebarProps) {
 	const keys = Object.keys(tags);
+	keys.sort((a, b) => {
+		if (selectedGenres.has(a) && !selectedGenres.has(b)) {
+			return -1;
+		} else if (!selectedGenres.has(a) && selectedGenres.has(b)) {
+			return 1;
+		}
+		return a.localeCompare(b);
+	});
 	return (
 		<aside className={styles.sidebar}>
 			<div className={styles.tagSection}>
