@@ -4,6 +4,7 @@ import {ModelDefinition} from "miragejs/-types";
 import {Game, SortOption} from "./types";
 import {tryParseInt} from "./utils";
 
+const GAMES_PER_PAGE = 20;
 type RawGame = {
 	name: string,
 	metacritic: number,
@@ -88,7 +89,7 @@ export function makeServer({environment = 'development'} = {}) {
 				let term = searchParams.get('term') ?? '';
 				const sortBy = searchParams.get('sort') as SortOption;
 				const pgParam = request.queryParams.pg as string | null;
-				const pg = Math.max(tryParseInt(pgParam, 1), 1) - 1;
+				const pg = Math.max(tryParseInt(pgParam, 0), 0);
 
 				let filteredGames = sortedGames[sortBy];
 
@@ -117,9 +118,11 @@ export function makeServer({environment = 'development'} = {}) {
 					});
 				});
 
-				const pgSize = 20;
-				const processedGames = filteredGames.slice(pgSize * pg, 20);
-				return new Response(200, {}, {games: processedGames, genres: filteredGenreCounts});
+				const pgSize = GAMES_PER_PAGE;
+				const numPages = Math.floor(filteredGames.length / pgSize);
+				const start = pgSize * pg;
+				const processedGames = filteredGames.slice(start, start + pgSize);
+				return new Response(200, {}, {games: processedGames, genres: filteredGenreCounts, numPages});
 			});
 		},
 	});

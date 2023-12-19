@@ -39,9 +39,15 @@
         color: var(--primary-text-color);
         cursor: pointer;
         transition: background-color 0.3s, border-color 0.3s; /* smooth transitions for hover and focus */
+
+        &:disabled {
+            background-color: var(--tertiary-color);
+            border-color: var(--secondary-color);
+            cursor: default;
+        }
     }
 
-    button:hover {
+    button:hover:not(:disabled) {
         background-color: var(--primary-color);
         color: var(--primary-text-color);
     }
