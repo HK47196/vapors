@@ -9,7 +9,6 @@ import Pagination from "./components/Pagination.tsx";
 
 
 const formatter = new Intl.DateTimeFormat('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
-const GAMES_PER_PAGE = 20;
 
 function fetchGamesFn() {
 	let ac = new AbortController();
