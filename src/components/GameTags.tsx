@@ -1,4 +1,4 @@
-import styles from "./Sidebar.module.css";
+import styles from "./GameTags.module.css";
 import {Genres} from "../types.ts";
 
 interface GameTagsProps {
